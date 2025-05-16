@@ -1,3 +1,3 @@
 # amaniagrawal.me
 My portfolio website
-Love yoou Raabya
+Love you Raabya
