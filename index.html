@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amani's Terminal Portfolio</title>
   <style>
     body {
@@ -14,6 +14,7 @@
     #terminal {
       white-space: pre-wrap;
       min-height: 80vh;
+      animation: fadeIn 1s ease-in-out;
     }
     .input-line::before {
       content: "$ ";
@@ -32,17 +33,43 @@
       color: #00ffff;
       text-decoration: none;
     }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #33ff33;
+      animation: blink 1s step-start infinite;
+      height: 1em;
+      vertical-align: bottom;
+    }
   </style>
 </head>
 <body>
   <div id="terminal"></div>
   <div class="input-line">
     <input type="text" id="cmd" autofocus autocomplete="off" />
+    <span class="blinking-cursor"></span>
   </div>
 
   <script>
     const terminal = document.getElementById("terminal");
     const cmdInput = document.getElementById("cmd");
+
+    const asciiArt = `
+     *     *   *****   *   *   *****
+    * *   * *  *       **  *     *
+   ***** ***** *****   * * *     *
+   *   * *   * *       *  **     *
+   *   * *   * *****   *   *     *
+`;
 
     const commands = {
       help: `Available commands:\n  help\n  ls\n  cd [directory]\n  clear\n  whoami\n  motto`,
@@ -109,7 +136,7 @@
     });
 
     // Initial greeting
-    terminal.innerHTML = `Welcome to Amani's Terminal Portfolio. Type 'help' to get started.`;
+    terminal.innerHTML = `${asciiArt}\nWelcome to Amani's Terminal Portfolio. Type 'help' to get started.`;
   </script>
 </body>
 </html>
