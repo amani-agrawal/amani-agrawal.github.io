@@ -1,12 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amani's Terminal Portfolio</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #33ff33;
+      font-family: monospace;
+      padding: 2rem;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      min-height: 80vh;
+    }
+    .input-line::before {
+      content: "$ ";
+      color: #33ff33;
+    }
+    input {
+      background: none;
+      border: none;
+      color: #33ff33;
+      font-family: monospace;
+      font-size: 1rem;
+      outline: none;
+      width: 80%;
+    }
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
-  <h1>Welcome to My Website!</h1>
-  <p>This is a simple landing page hosted on GitHub Pages.</p>
+<body>
+  <div id="terminal"></div>
+  <div class="input-line">
+    <input type="text" id="cmd" autofocus autocomplete="off" />
+  </div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const cmdInput = document.getElementById("cmd");
+
+    const commands = {
+      help: `Available commands:\n  help\n  ls\n  cd [directory]\n  clear\n  whoami\n  motto`,
+
+      ls: `Directories:\n  AboutMe\n  Education\n  PastExperiences\n  Resume\n  Projects\n  FunStuff`,
+
+      cd: (arg) => {
+        const validDirs = {
+          aboutme: "about.html",
+          education: "education.html",
+          pastexperiences: "experience.html",
+          resume: "resume.pdf",
+          projects: "projects.html",
+          funstuff: "fun.html"
+        };
+        const page = validDirs[arg.toLowerCase()];
+        if (page) {
+          window.location.href = page;
+          return `Redirecting to ${arg}...`;
+        } else {
+          return `cd: ${arg}: No such directory`;
+        }
+      },
+
+      whoami: () => `Amani Agrawal\nCS + Math undergrad @ NYU`,
+
+      motto: () => `"Code. Build. Repeat."`,
+
+      clear: () => {
+        terminal.innerHTML = "";
+        return "";
+      }
+    };
+
+    function processCommand(input) {
+      const args = input.trim().split(" ");
+      const command = args[0].toLowerCase();
+
+      let output = "";
+      if (command === "cd") {
+        output = commands.cd(args[1] || "");
+      } else if (commands[command]) {
+        output = typeof commands[command] === 'function'
+          ? commands[command]() : commands[command];
+      } else {
+        output = `${command}: command not found`;
+      }
+
+      if (command !== "clear") {
+        terminal.innerHTML += `\n$ ${input}\n${output}`;
+      } else {
+        output && (terminal.innerHTML += `\n$ ${input}`);
+      }
+
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    cmdInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const input = cmdInput.value;
+        cmdInput.value = "";
+        processCommand(input);
+      }
+    });
+
+    // Initial greeting
+    terminal.innerHTML = `Welcome to Amani's Terminal Portfolio. Type 'help' to get started.`;
+  </script>
 </body>
 </html>
