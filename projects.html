@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Amani's Portfolio</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+      color: #f0f0f0;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .project-card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    .project-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+      color: #00ffff;
+    }
+    .project-subtitle {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 0.8rem;
+    }
+    .project-details {
+      line-height: 1.6;
+    }
+    .back-link {
+      color: #00ffff;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 2rem;
+    }
+    .tech {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 data-aos="fade-down">🚀 Projects</h1>
+
+    <div class="project-card" data-aos="fade-up">
+      <div class="project-title">Fuel Your Fitness</div>
+      <div class="project-subtitle">HackNYU x Google · Feb 2025</div>
+      <div class="project-details">
+        Web app to discover healthy dishes at nearby restaurants, with nutritional analysis for homemade meals.
+        Integrated Google Maps API and Kaggle data to deliver real-time food insights.
+        Won People’s Choice Award with 66+ votes.
+      </div>
+      <div class="tech">Tech: Next.js, Google Maps API, DeepSeek LLM, Python</div>
+    </div>
+
+    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="project-title">University Identification App</div>
+      <div class="project-subtitle">Hackathon Project · Nov 2024</div>
+      <div class="project-details">
+        Replaced physical student ID cards with a digital version using NFC and blockchain authentication.
+        Stored encrypted university IDs on MySQL backend and logged access events securely on-chain.
+      </div>
+      <div class="tech">Tech: JavaScript, Solidity, MySQL, Flutter</div>
+    </div>
+
+    <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="project-title">Web3 Hierarchical Access System</div>
+      <div class="project-subtitle">Microsoft x NYU · 2024</div>
+      <div class="project-details">
+        Used Semaphores to create privacy-preserving transaction visibility based on org hierarchy.
+        Built for enterprise transparency in blockchain-based internal audits and wallets.
+      </div>
+      <div class="tech">Tech: Solidity, JavaScript, Python, Arbitrum</div>
+    </div>
+
+    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="project-title">ERP System for Steel Company</div>
+      <div class="project-subtitle">Internship Project · 2024</div>
+      <div class="project-details">
+        Built a full-stack ERP tool for automating business processes from enquiry to production.
+        Enabled real-time BI dashboards, controlled user authentication, and document management with GDrive API.
+      </div>
+      <div class="tech">Tech: Flask, MySQL, Google API, JavaScript</div>
+    </div>
+
+    <a href="index.html" class="back-link">&larr; Back to Terminal</a>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
