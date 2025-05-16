@@ -51,9 +51,9 @@
     }
     @keyframes shake {
       0% { transform: translateX(0); }
-      25% { transform: translateX(-50px); }
-      50% { transform: translateX(50px); }
-      75% { transform: translateX(-50px); }
+      25% { transform: translateX(-100px); }
+      50% { transform: translateX(100px); }
+      75% { transform: translateX(-100px); }
       100% { transform: translateX(0); }
   }
 
@@ -100,12 +100,12 @@
       document.getElementById(`answer-${index}`).innerText = text;
     }
     function barcaClicked() {
-      const text = "😤 FC Barcelona?! I’m deeply offended. This site will now self-destruct in 5... 4... 😡";
+      const text = "😤 FC Barcelona?! I’m deeply offended. 😡";
       showAnswer(2, text);
       document.body.classList.add('shake');
       setTimeout(() => {
         document.body.classList.remove('shake');
-      }, 5000);
+      }, 50000);
     }
   </script>
 </body>
