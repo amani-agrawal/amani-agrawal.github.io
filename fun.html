@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun Stuff | Amani's Portfolio</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #00ffff;
+    }
+    .question {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #00ffff;
+      border-radius: 10px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button {
+      background-color: transparent;
+      color: #00ffff;
+      border: 1px solid #00ffff;
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    button:hover {
+      background-color: #00ffff;
+      color: #0a0a0a;
+    }
+    .answer {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: #99ffcc;
+    }
+    .back-link {
+      margin-top: 2rem;
+      display: block;
+      color: #00ffff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Fun Stuff About Amani</h1>
+
+  <div class="question">
+    <p>⚽ What sport does Amani love most?</p>
+    <button onclick="showAnswer(0, 'Football! I play midfielder — always watching the field like CR7.')">Football</button>
+    <button onclick="showAnswer(0, 'Close, but I prefer football!')">Cricket</button>
+    <div class="answer" id="answer-0"></div>
+  </div>
+
+  <div class="question">
+    <p>🏏 Who’s Amani’s favorite cricketer?</p>
+    <button onclick="showAnswer(1, 'Virat Kohli 🇮🇳 — King of chases, master of grit.')">Virat Kohli</button>
+    <button onclick="showAnswer(1, 'Nah, it’s Kohli all the way.')">Rohit Sharma</button>
+    <div class="answer" id="answer-1"></div>
+  </div>
+
+  <div class="question">
+    <p>🥭 What’s Amani’s favorite fruit?</p>
+    <button onclick="showAnswer(2, 'Mangoes 🥭 — the king of fruits and of my heart.')">Mango</button>
+    <button onclick="showAnswer(2, 'Nope, nothing beats mangoes.')">Banana</button>
+    <div class="answer" id="answer-2"></div>
+  </div>
+
+  <div class="question">
+    <p>🥊 What’s Amani’s hidden passion?</p>
+    <button onclick="showAnswer(3, 'Boxing! There’s something powerful about it.')">Boxing</button>
+    <button onclick="showAnswer(3, 'Nah, but I do enjoy watching boxing.')">Tennis</button>
+    <div class="answer" id="answer-3"></div>
+  </div>
+
+  <div class="question">
+    <p>🎬 What kind of movies does Amani love?</p>
+    <button onclick="showAnswer(4, 'Bollywood! Music, drama, masala – it’s all there.')">Bollywood</button>
+    <button onclick="showAnswer(4, 'I enjoy them, but Bollywood is home.')">Hollywood</button>
+    <div class="answer" id="answer-4"></div>
+  </div>
+
+  <a href="index.html" class="back-link">&larr; Back to Terminal</a>
+
+  <script>
+    function showAnswer(index, text) {
+      document.getElementById(`answer-${index}`).innerText = text;
+    }
+  </script>
+</body>
+</html>
