@@ -1,99 +1,146 @@
-<script>
-  const terminal = document.getElementById("terminal");
-  const cmdInput = document.getElementById("cmd");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amani's Terminal</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #33ff33;
+      font-family: monospace;
+      padding: 2rem;
+    }
+    #terminal {
+      white-space: pre-wrap;
+      min-height: 80vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .input-line::before {
+      content: "$ ";
+      color: #33ff33;
+    }
+    input {
+      caret-color: #33ff33;
+    }
+    input {
+      background: none;
+      border: none;
+      color: #33ff33;
+      font-family: monospace;
+      font-size: 1rem;
+      outline: none;
+      width: 80%;
+    }
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #33ff33;
+      animation: blink 1s step-start infinite;
+      height: 1em;
+      vertical-align: bottom;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <div class="input-line">
+    <input type="text" id="cmd" autofocus autocomplete="off" />
+  </div>
 
-  const asciiArt = `  
+  <script>
+    const terminal = document.getElementById("terminal");
+    const cmdInput = document.getElementById("cmd");
+
+    const asciiArt =   
     /\\      __  __      __      _   _    _
    /  \\    |  \\/  |    /  \\    | \\ | |  | |
   / /\\ \\   | \\  / |   / /\\ \\   |  \\| |  | |
- / ____ \\  | |\\/| |  / ____ \\  |   \` |  | |
-/_/    \\_\\ | |  | | /_/    \\_\\ |_| \\_|  |_|`;
+ / ____ \\  | |\\/| |  / ____ \\  |   \ |  | |
+/_/    \\_\\ | |  | | /_/    \\_\\ |_| \\_|  |_|
+;
 
-  // Commands
-  const commands = {
-    help: `Available commands:\n  help                    | To see all the commands\n  ls                      | To find all the directories\n  cd [directory]          | To navigate into a directory e.g. cd PastExperiences\n  whoami                  | Try and see`,
-    ls: `Directories:\n  AboutMe\n  Education\n  PastExperiences\n  Resume\n  Projects\n  FunStuff`,
-    cd: (arg) => {
-      const validDirs = {
-        aboutme: "about.html",
-        education: "education.html",
-        pastexperiences: "experience.html",
-        resume: "resume.html",
-        projects: "projects.html",
-        funstuff: "fun.html"
-      };
-      const page = validDirs[arg.toLowerCase()];
-      if (page) {
-        saveTerminalHistory(`$ cd ${arg}\nRedirecting to ${arg}...`);
-        window.location.href = page;
-        return `Redirecting to ${arg}...`;
-      } else {
-        return `cd: ${arg}: No such directory`;
+
+    const commands = {
+      help: Available commands:\n  help                    | To see all the commands\n  ls                      | To find all the directories\n  cd [directory]          | To navigate into a directory e.g. cd PastExperiences\n  whoami                  | Try and see,
+
+      ls: Directories:\n  AboutMe\n  Education\n  PastExperiences\n  Resume\n  Projects\n  FunStuff,
+
+      cd: (arg) => {
+        const validDirs = {
+          aboutme: "about.html",
+          education: "education.html",
+          pastexperiences: "experience.html",
+          resume: "resume.html",
+          projects: "projects.html",
+          funstuff: "fun.html"
+        };
+        const page = validDirs[arg.toLowerCase()];
+        if (page) {
+          window.location.href = page;
+          return Redirecting to ${arg}...;
+        } else {
+          return cd: ${arg}: No such directory;
+        }
+      },
+
+      whoami: () => Amani Agrawal\nCS + Math undergrad @ NYU 2027,
+
+      motto: () => "Code. Build. Repeat.",
+
+      clear: () => {
+        terminal.innerHTML = "";
+        return "";
       }
-    },
-    whoami: () => `Amani Agrawal\nCS + Math undergrad @ NYU 2027`,
-    motto: () => `"Code. Build. Repeat."`,
-    clear: () => {
-      terminal.innerHTML = "";
-      localStorage.setItem("terminalHistory", "");
-      return "";
-    }
-  };
+    };
 
-  // Save new command output to localStorage
-  function saveTerminalHistory(entry) {
-    const currentHistory = localStorage.getItem("terminalHistory") || "";
-    const updatedHistory = `${currentHistory}\n${entry}`;
-    localStorage.setItem("terminalHistory", updatedHistory);
-  }
+    function processCommand(input) {
+      const args = input.trim().split(" ");
+      const command = args[0].toLowerCase();
 
-  // Load saved history (if exists)
-  function loadTerminalHistory() {
-    const saved = localStorage.getItem("terminalHistory");
-    if (saved) {
-      terminal.innerHTML = asciiArt + "\n" + saved;
-    } else {
-      terminal.innerHTML = `${asciiArt}\nWelcome to Amani's Terminal Portfolio. Type 'help' to see all the commands.`;
-    }
-  }
-
-  function processCommand(input) {
-    const args = input.trim().split(" ");
-    const command = args[0].toLowerCase();
-
-    let output = "";
-    if (command === "cd") {
-      if (args[1] === "..") {
-        output = "You're already at the root. No going back 👻";
+      let output = "";
+      if (command === "cd") {
+        if (args[1] === "..") output= "You're already at the root. No going back 👻";
+        else output = commands.cd(args[1] || "");
+      } else if (commands[command]) {
+        output = typeof commands[command] === 'function'
+          ? commands[command]() : commands[command];
       } else {
-        output = commands.cd(args[1] || "");
+        output = ${command}: command not found;
       }
-    } else if (commands[command]) {
-      output = typeof commands[command] === "function"
-        ? commands[command]() : commands[command];
-    } else {
-      output = `${command}: command not found`;
+
+      if (command !== "clear") {
+        terminal.innerHTML += \n$ ${input}\n${output};
+      } else {
+        output && (terminal.innerHTML += \n$ ${input});
+      }
+
+      window.scrollTo(0, document.body.scrollHeight);
     }
 
-    if (command !== "clear") {
-      const formatted = `\n$ ${input}\n${output}`;
-      terminal.innerHTML += formatted;
-      saveTerminalHistory(formatted);
-    } else {
-      output && (terminal.innerHTML += `\n$ ${input}`);
-    }
+    cmdInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const input = cmdInput.value;
+        cmdInput.value = "";
+        processCommand(input);
+      }
+    });
 
-    window.scrollTo(0, document.body.scrollHeight);
-  }
-
-  cmdInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const input = cmdInput.value;
-      cmdInput.value = "";
-      processCommand(input);
-    }
-  });
-
-  // Load saved terminal state
-  loadTerminalHistory();
-</script>
+    // Initial greeting
+    terminal.innerHTML = ${asciiArt}\nWelcome to Amani's Terminal Portfolio. Type 'help' to see all the commands.;
+  </script>
+</body>
+</html>
